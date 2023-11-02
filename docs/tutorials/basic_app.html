@@ -1,0 +1,613 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="A tutorial for creating a basic program using hydra-zen and Hydra." name="description"/>
+<link href="../_static/hydra_zen_favicon_32x32.png" rel="icon" sizes="-1x-1" type="image/png"/>
+<link href="../_static/hydra_zen_favicon_64x64.png" rel="icon" sizes="-1x-1" type="image/png"/>
+<title>Create and Launch a Basic Application with Hydra — hydra-zen  documentation</title>
+<script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+<!-- Loaded before other Sphinx assets -->
+<link href="../_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet">
+<link href="../_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet"/>
+<link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet"/>
+<link as="font" crossorigin="" href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" rel="preload" type="font/woff2"/>
+<link as="font" crossorigin="" href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" rel="preload" type="font/woff2"/>
+<link as="font" crossorigin="" href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" rel="preload" type="font/woff2"/>
+<link href="../_static/pygments.css?v=a746c00c" rel="stylesheet" type="text/css"/>
+<link href="../_static/copybutton.css?v=76b2166b" rel="stylesheet" type="text/css"/>
+<link href="../_static/sphinx-codeautolink.css?v=125d5c1c" rel="stylesheet" type="text/css"/>
+<link href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" rel="stylesheet" type="text/css"/>
+<!-- Pre-loaded scripts that we'll load fully later -->
+<link as="script" href="../_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" rel="preload"/>
+<link as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" rel="preload"/>
+<script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
+<script src="../_static/documentation_options.js?v=5929fcd5"></script>
+<script src="../_static/doctools.js?v=888ff710"></script>
+<script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+<script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+<script src="../_static/copybutton.js?v=30646c52"></script>
+<script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-115029372-2"></script>
+<script src="../_static/gtag.js?v=dff6cbd6"></script>
+<script src="../_static/design-tabs.js?v=36754332"></script>
+<script>DOCUMENTATION_OPTIONS.pagename = 'tutorials/basic_app';</script>
+<link href="../genindex.html" rel="index" title="Index"/>
+<link href="../search.html" rel="search" title="Search"/>
+<link href="add_cli.html" rel="next" title="Add a Command Line Interface to Our Application"/>
+<link href="../tutorials.html" rel="prev" title="Tutorials"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="en" name="docsearch:language"/>
+</link></link></head>
+<body data-bs-root-margin="0px 0px -60%" data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-default-mode="" data-offset="180">
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<div id="pst-scroll-pixel-helper"></div>
+<button class="btn rounded-pill" id="pst-back-to-top" type="button">
+<i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+<input class="sidebar-toggle" id="__primary" name="__primary" type="checkbox"/>
+<label class="overlay overlay-primary" for="__primary"></label>
+<input class="sidebar-toggle" id="__secondary" name="__secondary" type="checkbox"/>
+<label class="overlay overlay-secondary" for="__secondary"></label>
+<div class="search-button__wrapper">
+<div class="search-button__overlay"></div>
+<div class="search-button__search-container">
+<form action="../search.html" class="bd-search d-flex align-items-center" method="get">
+<i class="fa-solid fa-magnifying-glass"></i>
+<input aria-label="Search the docs ..." autocapitalize="off" autocomplete="off" autocorrect="off" class="form-control" id="search-input" name="q" placeholder="Search the docs ..." spellcheck="false" type="search"/>
+<span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+</div>
+<nav class="bd-header navbar navbar-expand-lg bd-navbar">
+<div class="bd-header__inner bd-page-width">
+<label class="sidebar-toggle primary-toggle" for="__primary">
+<span class="fa-solid fa-bars"></span>
+</label>
+<div class="col-lg-3 navbar-header-items__start">
+<div class="navbar-item">
+<a class="navbar-brand logo" href="../index.html">
+<img alt="hydra-zen  documentation - Home" class="logo__image only-light" src="../_static/Hydra-Zen_logo_full_light_blue.png"/>
+<script>document.write(`<img src="../_static/Hydra-Zen_logo_full_light_blue.png" class="logo__image only-dark" alt="hydra-zen  documentation - Home"/>`);</script>
+</a></div>
+</div>
+<div class="col-lg-9 navbar-header-items">
+<div class="me-auto navbar-header-items__center">
+<div class="navbar-item"><nav class="navbar-nav">
+<p aria-label="Site Navigation" aria-level="1" class="sidebar-header-items__title" role="heading">
+    Site Navigation
+  </p>
+<ul class="bd-navbar-elements navbar-nav">
+<li class="nav-item current active">
+<a class="nav-link nav-internal" href="../tutorials.html">
+                        Tutorials
+                      </a>
+</li>
+<li class="nav-item">
+<a class="nav-link nav-internal" href="../how_tos.html">
+                        How-To Guides
+                      </a>
+</li>
+<li class="nav-item">
+<a class="nav-link nav-internal" href="../explanation.html">
+                        Explanation
+                      </a>
+</li>
+<li class="nav-item">
+<a class="nav-link nav-internal" href="../api_reference.html">
+                        Reference
+                      </a>
+</li>
+<li class="nav-item">
+<a class="nav-link nav-internal" href="../changes.html">
+                        Changelog
+                      </a>
+</li>
+</ul>
+</nav></div>
+</div>
+<div class="navbar-header-items__end">
+<div class="navbar-item navbar-persistent--container">
+<script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+</div>
+<div class="navbar-item">
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script></div>
+<div class="navbar-item"><ul aria-label="Icon Links" class="navbar-icon-links navbar-nav">
+<li class="nav-item">
+<a class="nav-link" data-bs-placement="bottom" data-bs-toggle="tooltip" href="https://github.com/mit-ll-responsible-ai/hydra-zen" rel="noopener" target="_blank" title="GitHub"><span><i aria-hidden="true" class="fab fa-github-square fa-lg"></i></span>
+<span class="sr-only">GitHub</span></a>
+</li>
+</ul></div>
+</div>
+</div>
+<div class="navbar-persistent--mobile">
+<script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+</div>
+<label class="sidebar-toggle secondary-toggle" for="__secondary" tabindex="0">
+<span class="fa-solid fa-outdent"></span>
+</label>
+</div>
+</nav>
+<div class="bd-container">
+<div class="bd-container__inner bd-page-width">
+<div class="bd-sidebar-primary bd-sidebar">
+<div class="sidebar-header-items sidebar-primary__section">
+<div class="sidebar-header-items__center">
+<div class="navbar-item"><nav class="navbar-nav">
+<p aria-label="Site Navigation" aria-level="1" class="sidebar-header-items__title" role="heading">
+    Site Navigation
+  </p>
+<ul class="bd-navbar-elements navbar-nav">
+<li class="nav-item current active">
+<a class="nav-link nav-internal" href="../tutorials.html">
+                        Tutorials
+                      </a>
+</li>
+<li class="nav-item">
+<a class="nav-link nav-internal" href="../how_tos.html">
+                        How-To Guides
+                      </a>
+</li>
+<li class="nav-item">
+<a class="nav-link nav-internal" href="../explanation.html">
+                        Explanation
+                      </a>
+</li>
+<li class="nav-item">
+<a class="nav-link nav-internal" href="../api_reference.html">
+                        Reference
+                      </a>
+</li>
+<li class="nav-item">
+<a class="nav-link nav-internal" href="../changes.html">
+                        Changelog
+                      </a>
+</li>
+</ul>
+</nav></div>
+</div>
+<div class="sidebar-header-items__end">
+<div class="navbar-item">
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script></div>
+<div class="navbar-item"><ul aria-label="Icon Links" class="navbar-icon-links navbar-nav">
+<li class="nav-item">
+<a class="nav-link" data-bs-placement="bottom" data-bs-toggle="tooltip" href="https://github.com/mit-ll-responsible-ai/hydra-zen" rel="noopener" target="_blank" title="GitHub"><span><i aria-hidden="true" class="fab fa-github-square fa-lg"></i></span>
+<span class="sr-only">GitHub</span></a>
+</li>
+</ul></div>
+</div>
+</div>
+<div class="sidebar-primary-items__start sidebar-primary__section">
+<div class="sidebar-primary-item"><nav aria-label="Section Navigation" class="bd-docs-nav bd-links">
+<p aria-level="1" class="bd-links__title" role="heading">Section Navigation</p>
+<div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Create and Launch a Basic Application with Hydra</a></li>
+<li class="toctree-l1"><a class="reference internal" href="add_cli.html">Add a Command Line Interface to Our Application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hierarchy.html">Design a Hierarchical Interface for an Application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config_groups.html">Provide Swappable Configuration Groups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inject_wrapper.html">Inject Novel Functionality via the Application’s Configurable Interface</a></li>
+</ul>
+</div>
+</nav></div>
+</div>
+<div class="sidebar-primary-items__end sidebar-primary__section">
+</div>
+<div id="rtd-footer-container"></div>
+</div>
+<main class="bd-main" id="main-content">
+<div class="bd-content">
+<div class="bd-article-container">
+<div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+<div class="header-article-items__start">
+<div class="header-article-item">
+<nav aria-label="Breadcrumb">
+<ul class="bd-breadcrumbs">
+<li class="breadcrumb-item breadcrumb-home">
+<a aria-label="Home" class="nav-link" href="../index.html">
+<i class="fa-solid fa-home"></i>
+</a>
+</li>
+<li class="breadcrumb-item"><a class="nav-link" href="../tutorials.html">Tutorials</a></li>
+<li aria-current="page" class="breadcrumb-item active">Create and...</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+</div>
+<div id="searchbox"></div>
+<article class="bd-article" role="main">
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Hover your cursor over any code block in this tutorial, and a clipboard will appear.
+Click it to copy the contents of the code block.</p>
+</div>
+<div class="admonition-prerequisites admonition">
+<p class="admonition-title">Prerequisites</p>
+<p>This tutorial does not assume that you have any familiarity with
+hydra-zen or Hydra. It does, however, assume that you are comfortable
+with using Python. If you are new to Python, consider consulting this resource for
+<a class="reference external" href="https://www.pythonlikeyoumeanit.com/module_1.html">getting started with Python</a>,
+and this
+<a class="reference external" href="https://www.pythonlikeyoumeanit.com/module_2.html">tutorial on the essentials of Python</a>.</p>
+</div>
+<section id="create-and-launch-a-basic-application-with-hydra">
+<span id="basic-app"></span><h1>Create and Launch a Basic Application with Hydra<a class="headerlink" href="#create-and-launch-a-basic-application-with-hydra" title="Link to this heading">#</a></h1>
+<p>In this tutorial we will create a basic application that we can configure and launch
+using Hydra. Although this project will be trivial, we will be introduced to the
+overarching design that is used for any Hydra-based project, as well to the
+core functionality provided by hydra-zen.</p>
+<section id="getting-started">
+<h2>Getting Started<a class="headerlink" href="#getting-started" title="Link to this heading">#</a></h2>
+<p>We will install hydra-zen and then we will create a Python script where we will create
+our application.</p>
+<section id="installing-hydra-zen">
+<h3>Installing hydra-zen<a class="headerlink" href="#installing-hydra-zen" title="Link to this heading">#</a></h3>
+<p>To install hydra-zen in your Python environment, run the following command in your
+terminal:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>hydra-zen
+</pre></div>
+</div>
+<p>To verify that hydra-zen is installed as-expected, open a Python console and try
+importing <code class="docutils literal notranslate"><span class="pre">hydra_zen</span></code>.</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">hydra_zen</span>
+</pre></div>
+</div>
+</section>
+<section id="creating-a-script-for-our-application">
+<h3>Creating a Script for our Application<a class="headerlink" href="#creating-a-script-for-our-application" title="Link to this heading">#</a></h3>
+<p>Navigate to (or create) a directory where you are comfortable with files being written;
+running our code will leave behind some “artifacts” here. Create a new text file called
+<code class="docutils literal notranslate"><span class="pre">my_app.py</span></code> and open it in an editor.</p>
+</section>
+</section>
+<section id="creating-a-simple-hydra-based-application">
+<h2>Creating a Simple Hydra-Based Application<a class="headerlink" href="#creating-a-simple-hydra-based-application" title="Link to this heading">#</a></h2>
+<p>Let’s design our program to take in two (configurable) player names, and to log the
+players’ names to a text file called <code class="docutils literal notranslate"><span class="pre">player_log.txt</span></code>.</p>
+<p>Our program will consist of two components, which comprises the structure of any
+Hydra-based application:</p>
+<ol class="arabic simple">
+<li><p>A “config”, which defines the configurable interface of our application.</p></li>
+<li><p>A task function, which accepts the populated config, and whose body specifies the code that will be executed when our application is launched.</p></li>
+</ol>
+<p>Once we create this typical Hydra app, we will iterate on it and simplify things by using how hydra-zen’s <a class="reference internal" href="../generated/hydra_zen.zen.html#hydra_zen.zen" title="hydra_zen.zen"><code class="xref py py-func docutils literal notranslate"><span class="pre">hydra_zen.zen()</span></code></a> wrapper.</p>
+<section id="writing-the-application">
+<h3>Writing the Application<a class="headerlink" href="#writing-the-application" title="Link to this heading">#</a></h3>
+<p>In <code class="docutils literal notranslate"><span class="pre">my_app.py</span></code> we’ll define a config and task function for this application. We will
+use <a class="reference internal" href="../generated/hydra_zen.make_config.html#hydra_zen.make_config" title="hydra_zen.make_config"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_config()</span></code></a> to create the config. Write the following code in
+this file.</p>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">Contents of my_app.py:</span><a class="headerlink" href="#id3" title="Link to this code">#</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">hydra_zen</span> <span class="kn">import</span> <a class="sphinx-codeautolink-a" href="../generated/hydra_zen.make_config.html#hydra_zen.make_config" title="hydra_zen.make_config"><span class="n">make_config</span></a><span class="p">,</span> <a class="sphinx-codeautolink-a" href="../generated/hydra_zen.instantiate.html#hydra_zen.instantiate" title="hydra_zen.instantiate"><span class="n">instantiate</span></a>
+
+<span class="n">Config</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../generated/hydra_zen.make_config.html#hydra_zen.make_config" title="hydra_zen.make_config"><span class="n">make_config</span></a><span class="p">(</span><span class="s2">"player1"</span><span class="p">,</span> <span class="s2">"player2"</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">task_function</span><span class="p">(</span><span class="n">cfg</span><span class="p">):</span>
+    <span class="c1"># cfg: Config</span>
+    <span class="n">obj</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../generated/hydra_zen.instantiate.html#hydra_zen.instantiate" title="hydra_zen.instantiate"><span class="n">instantiate</span></a><span class="p">(</span><span class="n">cfg</span><span class="p">)</span>
+
+    <span class="c1"># access the player names from the config</span>
+    <span class="n">p1</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">player1</span>
+    <span class="n">p2</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">player2</span>
+
+    <span class="c1"># write the log with the names</span>
+    <span class="k">with</span> <a class="sphinx-codeautolink-a" href="https://docs.python.org/3/library/functions.html#open" title="open"><span class="nb">open</span></a><span class="p">(</span><span class="s2">"player_log.txt"</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"Game session log:</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Player 1: </span><span class="si">{</span><span class="n">p1</span><span class="si">}</span><span class="se">\n</span><span class="s2">"</span> <span class="sa">f</span><span class="s2">"Player 2: </span><span class="si">{</span><span class="n">p2</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">p1</span><span class="p">,</span> <span class="n">p2</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="launching-the-application">
+<span id="launch-basic-app"></span><h3>Launching the Application<a class="headerlink" href="#launching-the-application" title="Link to this heading">#</a></h3>
+<p>It’s time to run our application. Open a Python console – or a Jupyter notebook – in
+the same directory as <code class="docutils literal notranslate"><span class="pre">my_app.py</span></code>. First, we will import our config and our task
+function.</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">my_app</span> <span class="kn">import</span> <span class="n">Config</span><span class="p">,</span> <span class="n">task_function</span>
+</pre></div>
+</div>
+<p>We will also need to import hydra-zen’s <a class="reference internal" href="../generated/hydra_zen.launch.html#hydra_zen.launch" title="hydra_zen.launch"><code class="xref py py-func docutils literal notranslate"><span class="pre">launch()</span></code></a> function.</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">hydra_zen</span> <span class="kn">import</span> <a class="sphinx-codeautolink-a" href="../generated/hydra_zen.launch.html#hydra_zen.launch" title="hydra_zen.launch"><span class="n">launch</span></a>
+</pre></div>
+</div>
+<p>Next, we will launch our application by providing the <a class="reference internal" href="../generated/hydra_zen.launch.html#hydra_zen.launch" title="hydra_zen.launch"><code class="xref py py-func docutils literal notranslate"><span class="pre">launch()</span></code></a>
+function with: our config, our task function, and specific configured values for the
+player’s names. Here, we will use the names <code class="docutils literal notranslate"><span class="pre">link</span></code> and <code class="docutils literal notranslate"><span class="pre">zelda</span></code> for the names of
+player 1 and player 2, respectively. The <code class="docutils literal notranslate"><span class="pre">version_base</span></code> parameter controls some of the default behaviors of Hydra <a class="footnote-reference brackets" href="#id2" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>.</p>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">Launching our application</span><a class="headerlink" href="#id4" title="Link to this code">#</a></div>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">job</span> <span class="o">=</span> <span class="n">launch</span><span class="p">(</span><span class="n">Config</span><span class="p">,</span> <span class="n">task_function</span><span class="p">,</span> <span class="n">overrides</span><span class="o">=</span><span class="p">[</span><span class="s2">"player1=link"</span><span class="p">,</span> <span class="s2">"player2=zelda"</span><span class="p">],</span> <span class="n">version_base</span><span class="o">=</span><span class="s2">"1.1"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Let’s inspect the completion status of this job by inspecting <code class="docutils literal notranslate"><span class="pre">job.status</span></code>; it should
+indicate <code class="docutils literal notranslate"><span class="pre">COMPLETED</span></code>.</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">job</span><span class="o">.</span><span class="n">status</span>
+<span class="go">&lt;JobStatus.COMPLETED: 1&gt;</span>
+</pre></div>
+</div>
+<p>We can also directly access the value that is returned by our task-function.</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">job</span><span class="o">.</span><span class="n">return_value</span>
+<span class="go">('link', 'zelda')</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If you modify the contents of <code class="docutils literal notranslate"><span class="pre">my_app.py</span></code>, then you need to restart your Python
+console (or restart the kernel of your Jupyter notebook) and re-launch the
+application in order for these changes to take effect.</p>
+</div>
+</section>
+<section id="inspecting-the-results">
+<h3>Inspecting the Results<a class="headerlink" href="#inspecting-the-results" title="Link to this heading">#</a></h3>
+<p>Our application was designed to log the names of the players for that particular game
+session; let’s check that this log was written as-expected, and familiarize ourselves
+with the other files that Hydra writes when it launches an application.</p>
+<p>First, we’ll create a simple Python function that will make it easy to print files
+in our Python console</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <a class="sphinx-codeautolink-a" href="https://docs.python.org/3/library/pathlib.html#module-pathlib" title="pathlib"><span class="nn">pathlib</span></a> <span class="kn">import</span> <a class="sphinx-codeautolink-a" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="pathlib.Path"><span class="n">Path</span></a>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">print_file</span><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="pathlib.Path"><span class="n">x</span></a><span class="p">:</span> <a class="sphinx-codeautolink-a" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="pathlib.Path"><span class="n">Path</span></a><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">with</span> <a class="sphinx-codeautolink-a" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path.open" title="pathlib.Path.open"><span class="n">x</span><span class="o">.</span><span class="n">open</span></a><span class="p">(</span><span class="s2">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<span class="gp">... </span>        <a class="sphinx-codeautolink-a" href="https://docs.python.org/3/library/functions.html#print" title="print"><span class="nb">print</span></a><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>By default, Hydra will create a directory called <code class="docutils literal notranslate"><span class="pre">outputs</span></code>, and will store the
+application’s outputs in a time-stamped subdirectory of the form
+<code class="docutils literal notranslate"><span class="pre">outputs/${now:%Y-%m-%d}/${now:%H-%M-%S}</span></code>. The particular subdirectory for our job is
+provided by <code class="docutils literal notranslate"><span class="pre">job.working_dir</span></code>.</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">job_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">job</span><span class="o">.</span><span class="n">working_dir</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">job_dir</span>  <span class="c1"># output will vary based on reader's date/time/OS</span>
+<span class="go">WindowsPath('outputs/2021-10-21/10-36-23')</span>
+</pre></div>
+</div>
+<p>The contents of this directory consists of: the log-file that our application wrote, a
+<code class="docutils literal notranslate"><span class="pre">.hydra</span></code> directory that details the configurations of this particular job, and a
+log-file written by Hydra.</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/library/functions.html#sorted" title="sorted"><span class="nb">sorted</span></a><span class="p">(</span><span class="n">job_dir</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">"*"</span><span class="p">))</span>
+<span class="go">[WindowsPath('outputs/2021-10-21/10-36-23/.hydra'),</span>
+<span class="go"> WindowsPath('outputs/2021-10-21/10-36-23/player_log.txt'),</span>
+<span class="go"> WindowsPath('outputs/2021-10-21/10-36-23/zen_launch.log')]</span>
+</pre></div>
+</div>
+<p>Let’s verify that our application wrote the player-log as-expected.</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">print_file</span><span class="p">(</span><span class="n">job_dir</span> <span class="o">/</span> <span class="s2">"player_log.txt"</span><span class="p">)</span>
+<span class="go">Game session log:</span>
+<span class="go">Player 1: link</span>
+<span class="go">Player 2: zelda</span>
+</pre></div>
+</div>
+<p>Great! The players’ names were recorded correctly.</p>
+<p>The contents of the <code class="docutils literal notranslate"><span class="pre">.hydra</span></code> subdirectory is a collection of YAML files:</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/library/functions.html#sorted" title="sorted"><span class="nb">sorted</span></a><span class="p">((</span><span class="n">job_dir</span> <span class="o">/</span> <span class="s2">".hydra"</span><span class="p">)</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">"*"</span><span class="p">))</span>
+<span class="go">[WindowsPath('outputs/2021-10-21/10-36-23/.hydra/config.yaml'),</span>
+<span class="go"> WindowsPath('outputs/2021-10-21/10-36-23/.hydra/hydra.yaml'),</span>
+<span class="go"> WindowsPath('outputs/2021-10-21/10-36-23/.hydra/overrides.yaml')]</span>
+</pre></div>
+</div>
+<p>To see the particular config that was passed to our task function for this job,
+we can inspect <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code>.</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">print_file</span><span class="p">(</span><span class="n">job_dir</span> <span class="o">/</span> <span class="s2">".hydra"</span> <span class="o">/</span> <span class="s2">"config.yaml"</span><span class="p">)</span>
+<span class="go">player1: link</span>
+<span class="go">player2: zelda</span>
+</pre></div>
+</div>
+<p>We successfully designed, configured, and launched an application using hydra-zen and
+Hydra! In the next tutorial, we will add a command line interface to this app.</p>
+<p>In the final section, let’s see how we can simplify some of our code using special features provided by hydra-zen.</p>
+</section>
+<section id="simplifying-things-with-hydra-zen-zen">
+<h3>Simplifying Things with <a class="reference internal" href="../generated/hydra_zen.zen.html#hydra_zen.zen" title="hydra_zen.zen"><code class="xref py py-func docutils literal notranslate"><span class="pre">hydra_zen.zen()</span></code></a><a class="headerlink" href="#simplifying-things-with-hydra-zen-zen" title="Link to this heading">#</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This part of the tutorial requires <code class="docutils literal notranslate"><span class="pre">hydra-zen</span> <span class="pre">v0.9.0</span></code> or later to be installed.</p>
+</div>
+<p>We can simplify our task function, removing Hydra-specific logic from it, by using <a class="reference internal" href="../generated/hydra_zen.zen.html#hydra_zen.zen" title="hydra_zen.zen"><code class="xref py py-func docutils literal notranslate"><span class="pre">hydra_zen.zen()</span></code></a>.</p>
+<p>Let’s update our task function in <code class="xref py py-obj docutils literal notranslate"><span class="pre">my_app.py</span></code> to be a simple function whose signature determines the fields that will be extracted and instantiated from our config.
+Then we can use <a class="reference internal" href="../generated/hydra_zen.builds.html#hydra_zen.builds" title="hydra_zen.builds"><code class="xref py py-func docutils literal notranslate"><span class="pre">hydra_zen.builds()</span></code></a>, instead of <a class="reference internal" href="../generated/hydra_zen.make_config.html#hydra_zen.make_config" title="hydra_zen.make_config"><code class="xref py py-func docutils literal notranslate"><span class="pre">hydra_zen.make_config()</span></code></a>, to generate our config based off of the task function’s signature.</p>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text">Simplified contents of my_app.py:</span><a class="headerlink" href="#id5" title="Link to this code">#</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">hydra_zen</span> <span class="kn">import</span> <a class="sphinx-codeautolink-a" href="../generated/hydra_zen.builds.html#hydra_zen.builds" title="hydra_zen.builds"><span class="n">builds</span></a>
+
+<span class="c1"># note: type annotations are not required</span>
+<span class="k">def</span> <span class="nf">new_task_function</span><span class="p">(</span><span class="n">player1</span><span class="p">:</span> <a class="sphinx-codeautolink-a" href="https://docs.python.org/3/library/stdtypes.html#str" title="str"><span class="nb">str</span></a><span class="p">,</span> <span class="n">player2</span><span class="p">:</span> <a class="sphinx-codeautolink-a" href="https://docs.python.org/3/library/stdtypes.html#str" title="str"><span class="nb">str</span></a><span class="p">):</span>
+    <span class="c1"># write the log with the names</span>
+    <span class="k">with</span> <a class="sphinx-codeautolink-a" href="https://docs.python.org/3/library/functions.html#open" title="open"><span class="nb">open</span></a><span class="p">(</span><span class="s2">"player_log.txt"</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"Game session log:</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Player 1: </span><span class="si">{</span><span class="n">player1</span><span class="si">}</span><span class="se">\n</span><span class="s2">"</span> <span class="sa">f</span><span class="s2">"Player 2: </span><span class="si">{</span><span class="n">player2</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">player1</span><span class="p">,</span> <span class="n">player2</span>
+
+<span class="c1"># auto-populates the fields of our configs based on the signature of</span>
+<span class="c1"># `task_function`</span>
+<span class="n">Config</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../generated/hydra_zen.builds.html#hydra_zen.builds" title="hydra_zen.builds"><span class="n">builds</span></a><span class="p">(</span><span class="n">new_task_function</span><span class="p">,</span> <span class="n">populate_full_signature</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Wrapping this function as</p>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text">Simplified contents of my_app.py:</span><a class="headerlink" href="#id6" title="Link to this code">#</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">hydra_zen</span> <span class="kn">import</span> <a class="sphinx-codeautolink-a" href="../generated/hydra_zen.zen.html#hydra_zen.zen" title="hydra_zen.zen"><span class="n">zen</span></a>
+
+<span class="n">hydra_compat_task_fn</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../generated/hydra_zen.zen.html#hydra_zen.zen" title="hydra_zen.zen"><span class="n">zen</span></a><span class="p">(</span><span class="n">task_function</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>returns a Hydra-compatible task function, which accepts a single input config just like our original task function did. However, the <code class="xref py py-obj docutils literal notranslate"><span class="pre">zen</span></code> wrapper adds the logic of extracting
+and instantiating the <code class="xref py py-obj docutils literal notranslate"><span class="pre">player1</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">player2</span></code> fields from our config for us.</p>
+<p>Now we will supply a zen-wrapped version of our task function to <a class="reference internal" href="../generated/hydra_zen.launch.html#hydra_zen.launch" title="hydra_zen.launch"><code class="xref py py-func docutils literal notranslate"><span class="pre">hydra_zen.launch()</span></code></a>; all other aspects of launching our app and inspecting its results are unchanged.</p>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text">Launching our application</span><a class="headerlink" href="#id7" title="Link to this code">#</a></div>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">my_app</span> <span class="kn">import</span> <span class="n">Config</span><span class="p">,</span> <span class="n">new_task_function</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">hydra_zen</span> <span class="kn">import</span> <a class="sphinx-codeautolink-a" href="../generated/hydra_zen.zen.html#hydra_zen.zen" title="hydra_zen.zen"><span class="n">zen</span></a><span class="p">,</span> <a class="sphinx-codeautolink-a" href="../generated/hydra_zen.launch.html#hydra_zen.launch" title="hydra_zen.launch"><span class="n">launch</span></a>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wrapped_fn</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../generated/hydra_zen.zen.html#hydra_zen.zen" title="hydra_zen.zen"><span class="n">zen</span></a><span class="p">(</span><span class="n">new_task_function</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">job</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../generated/hydra_zen.launch.html#hydra_zen.launch" title="hydra_zen.launch"><span class="n">launch</span></a><span class="p">(</span><span class="n">Config</span><span class="p">,</span> <span class="n">wrapped_fn</span><span class="p">,</span> <span class="n">overrides</span><span class="o">=</span><span class="p">[</span><span class="s2">"player1=link"</span><span class="p">,</span> <span class="s2">"player2=zelda"</span><span class="p">],</span> <span class="n">version_base</span><span class="o">=</span><span class="s2">"1.1"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>See that we were able to launch the same app as before, but with some additional benefits:</p>
+<ul class="simple">
+<li><p>Our task function does not have any Hydra-specific logic and can be used for other purposes.</p></li>
+<li><p>We can utilize <a class="reference internal" href="../generated/hydra_zen.builds.html#hydra_zen.builds" title="hydra_zen.builds"><code class="xref py py-func docutils literal notranslate"><span class="pre">hydra_zen.builds()</span></code></a> to auto-populate our config instead of hand-specifying the fields.</p></li>
+</ul>
+</section>
+</section>
+<section id="reference-documentation">
+<h2>Reference Documentation<a class="headerlink" href="#reference-documentation" title="Link to this heading">#</a></h2>
+<p>Want a deeper understanding of how hydra-zen and Hydra work?
+The following reference materials are especially relevant to this
+tutorial section.</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../generated/hydra_zen.zen.html#hydra_zen.zen" title="hydra_zen.zen"><code class="xref py py-func docutils literal notranslate"><span class="pre">zen()</span></code></a></p></li>
+<li><p><a class="reference internal" href="../generated/hydra_zen.builds.html#hydra_zen.builds" title="hydra_zen.builds"><code class="xref py py-func docutils literal notranslate"><span class="pre">builds()</span></code></a></p></li>
+<li><p><a class="reference internal" href="../generated/hydra_zen.make_config.html#hydra_zen.make_config" title="hydra_zen.make_config"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_config()</span></code></a></p></li>
+<li><p><a class="reference internal" href="../generated/hydra_zen.launch.html#hydra_zen.launch" title="hydra_zen.launch"><code class="xref py py-func docutils literal notranslate"><span class="pre">launch()</span></code></a></p></li>
+<li><p><a class="reference external" href="https://hydra.cc/docs/upgrades/version_base/#internaldocs-banner">Hydra’s version_base</a></p></li>
+</ul>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p><strong>Cleaning Up</strong>:
+To clean up after this tutorial, delete the <code class="docutils literal notranslate"><span class="pre">outputs</span></code> directory that Hydra created
+upon launching our application. You can find this in the same directory as your
+<code class="docutils literal notranslate"><span class="pre">my_app.py</span></code> file.</p>
+</div>
+</section>
+<section id="footnotes">
+<h2>Footnotes<a class="headerlink" href="#footnotes" title="Link to this heading">#</a></h2>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id2" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a href="#id1" role="doc-backlink">1</a><span class="fn-bracket">]</span></span>
+<p>Specifically, we want to ensure that Hydra will <a class="reference external" href="https://hydra.cc/docs/upgrades/1.1_to_1.2/changes_to_job_working_dir/">change its working directory to its “jobdir”</a> when we launch our app.</p>
+</aside>
+</aside>
+</section>
+</section>
+</article>
+<footer class="prev-next-footer">
+<!-- Previous / next buttons -->
+<div class="prev-next-area">
+<a class="left-prev" href="../tutorials.html" title="previous page">
+<i class="fa-solid fa-angle-left"></i>
+<div class="prev-next-info">
+<p class="prev-next-subtitle">previous</p>
+<p class="prev-next-title">Tutorials</p>
+</div>
+</a>
+<a class="right-next" href="add_cli.html" title="next page">
+<div class="prev-next-info">
+<p class="prev-next-subtitle">next</p>
+<p class="prev-next-title">Add a Command Line Interface to Our Application</p>
+</div>
+<i class="fa-solid fa-angle-right"></i>
+</a>
+</div>
+</footer>
+</div>
+<div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+<div class="sidebar-secondary-item">
+<div class="page-toc tocsection onthispage">
+<i class="fa-solid fa-list"></i> On this page
+  </div>
+<nav class="bd-toc-nav page-toc">
+<ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started">Getting Started</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#installing-hydra-zen">Installing hydra-zen</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-script-for-our-application">Creating a Script for our Application</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-simple-hydra-based-application">Creating a Simple Hydra-Based Application</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#writing-the-application">Writing the Application</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#launching-the-application">Launching the Application</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inspecting-the-results">Inspecting the Results</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#simplifying-things-with-hydra-zen-zen">Simplifying Things with <code class="xref py py-func docutils literal notranslate"><span class="pre">hydra_zen.zen()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reference-documentation">Reference Documentation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">Footnotes</a></li>
+</ul>
+</nav></div>
+<div class="sidebar-secondary-item">
+<div class="tocsection sourcelink">
+<a href="../_sources/tutorials/basic_app.rst.txt">
+<i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+</div>
+</div>
+</div></div>
+</div>
+<footer class="bd-footer-content">
+</footer>
+</main>
+</div>
+</div>
+<!-- Scripts loaded after <body> so the DOM is not blocked -->
+<script src="../_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
+<footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+<div class="footer-items__start">
+<div class="footer-item">
+<p class="copyright">
+    
+      © Copyright 2023 Massachusetts Institute of Technology.
+      <br/>
+</p>
+</div>
+<div class="footer-item">
+<p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+    <br/>
+</p>
+</div>
+</div>
+<div class="footer-items__end">
+<div class="footer-item"><p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.14.3.
+</p></div>
+</div>
+</div>
+</footer>
+</body>
+</html>
